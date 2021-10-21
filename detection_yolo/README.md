@@ -12,10 +12,6 @@ The package subscribes to an RGB and Depth stream and outputs an array of detect
 
 `git clone --recursive git@github.com:MaxAndrewNZ/darknet_ros.git`
 
-### [Detection Messages](https://github.com/MaxAndrewNZ/ros_detection_msgs)
-
-`git clone git@github.com:MaxAndrewNZ/ros_detection_msgs.git`
-
 ## Running
 
 ### Build and Source
@@ -23,15 +19,10 @@ The package subscribes to an RGB and Depth stream and outputs an array of detect
 1. `catkin build`
 2. `source devel/setup.bash`
 
-### Launching
-
-`roslaunch detection_yolo yolo_object_depth_detection.launch`
-
 ## Using Bags
 
 1. `rosbag play {bag_name} --clock --loop`
 2. `rosparam set use_sim_time true`
-
 
 ## Configuration
 
