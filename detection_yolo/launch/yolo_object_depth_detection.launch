@@ -1,0 +1,11 @@
+  <launch>
+
+    <!-- Object detection --> 
+    <include file="$(find yolo_detection)/launch/yolo_object_detection.launch"/>
+
+    <!-- Object bounding boxes to cuboid detections --> 
+    <node pkg="yolo_detection" type="bounding_box_to_cuboid.py" name="bounding_box_to_cuboid" output="screen">
+        <rosparam file="$(find yolo_detection)/config/bounding_box_to_cuboid_params.yaml" command="load" />
+    </node>
+
+  </launch>
