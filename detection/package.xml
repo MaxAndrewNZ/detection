@@ -8,7 +8,7 @@
 
 <buildtool_depend>catkin</buildtool_depend>
   <exec_depend>detection_control</exec_depend>
-  <exec_depend>detection_msgs</exec_depend>
+  <exec_depend>detection_messages</exec_depend>
   <exec_depend>detection_yolo</exec_depend>
   <export><metapackage/></export>
 
