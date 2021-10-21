@@ -8,8 +8,8 @@
   <arg name="yolo_config_path"           default="$(find darknet_ros)/yolo_network_config/cfg"/>
 
   <!-- ROS and network parameter files -->
-  <arg name="ros_param_file"             default="$(find yolo_detection)/config/darknet_ros_config.yaml"/>
-  <arg name="network_param_file"         default="$(find yolo_detection)/config/yolov3.yaml"/>
+  <arg name="ros_param_file"             default="$(find detection_yolo)/config/darknet_ros_config.yaml"/>
+  <arg name="network_param_file"         default="$(find detection_yolo)/config/yolov3.yaml"/>
 
   <!-- Load parameters -->
   <rosparam command="load" ns="darknet_ros" file="$(arg ros_param_file)"/>

@@ -1,0 +1,15 @@
+<?xml version="1.0"?>
+<package format="2">
+  <name>detection</name>
+  <version>0.0.1</version>
+  <description>The detection meta package</description>
+  <maintainer email="mla138@uclive.ac.nz">Max Andrew</maintainer>
+  <license>BSD</license>
+
+<buildtool_depend>catkin</buildtool_depend>
+  <exec_depend>detection_control</exec_depend>
+  <exec_depend>detection_msgs</exec_depend>
+  <exec_depend>detection_yolo</exec_depend>
+  <export><metapackage/></export>
+
+</package>

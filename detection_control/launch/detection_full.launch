@@ -1,6 +1,6 @@
   <launch>
 
-    <!-- Camera -->
+    <!-- Camera Launch-->
     <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
         <arg name="depth_width"           default="640"/>
         <arg name="depth_height"          default="480"/>
@@ -17,6 +17,11 @@
     </include>  
 
     <!-- Object depth detection --> 
-    <include file="$(find yolo_detection)/launch/yolo_object_depth_detection.launch"/>
+    <include file="$(find detection_yolo)/launch/yolo_object_depth_detection.launch"/>
+
+    <!-- Detection Robot Control -->
+    <node pkg="detection_control" type="control_from_detection.py" name="control_from_detection" output="screen">
+        <rosparam file="$(find detection_control)/config/detection_control_params.yaml" command="load" />
+    </node>
 
   </launch>

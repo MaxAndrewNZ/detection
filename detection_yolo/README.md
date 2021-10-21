@@ -25,7 +25,7 @@ The package subscribes to an RGB and Depth stream and outputs an array of detect
 
 ### Launching
 
-`roslaunch yolo_detection yolo_object_depth_detection.launch`
+`roslaunch detection_yolo yolo_object_depth_detection.launch`
 
 ## Using Bags
 
