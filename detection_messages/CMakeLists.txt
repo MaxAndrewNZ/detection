@@ -1,5 +1,5 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(detection_msgs)
+project(detection_messages)
 add_compile_options(-std=c++14)
 
 find_package(catkin REQUIRED COMPONENTS

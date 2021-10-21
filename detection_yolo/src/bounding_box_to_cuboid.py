@@ -84,12 +84,12 @@ def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboi
 
 
 def start_listeners():
-    box_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/bounding_box_topic"), BoundingBoxes)
-    depth_image_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/depth_image_topic"), Image)
+    box_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/bounding_box_topic"), BoundingBoxes, queue_size=10)
+    depth_image_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/depth_image_topic"), Image, queue_size=10)
 
     ts = message_filters.ApproximateTimeSynchronizer([box_sub, depth_image_sub], 1, 1)
 
-    cuboid_publisher = rospy.Publisher(rospy.get_param("/bounding_box_to_cuboid/publish_topic"), DetectionArray)
+    cuboid_publisher = rospy.Publisher(rospy.get_param("/bounding_box_to_cuboid/publish_topic"), DetectionArray, queue_size=10)
     camera_intrinsics = rospy.wait_for_message(rospy.get_param("/bounding_box_to_cuboid/camera_intrinsics_topic"), CameraInfo)
 
     ts.registerCallback(process_bounding_boxes, camera_intrinsics, cuboid_publisher)

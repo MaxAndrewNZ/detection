@@ -1,5 +1,5 @@
 control_from_detection:
   rate: 10
-  stopping_distance: 2.0
+  stopping_distance: 1.0
   velocity_topic: '/cmd_vel_mux/detection_control'
   detection_topic: '/bounding_box_to_cuboid/detections'

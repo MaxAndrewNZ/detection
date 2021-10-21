@@ -1,6 +1,6 @@
 <?xml version="1.0"?>
 <package format="2">
-  <name>detection_msgs</name>
+  <name>detection_messages</name>
   <version>0.0.1</version>
   <description>A package for defining ros messages used for object detection</description>
   <maintainer email="mla138@uclive.ac.nz">Max Andrew</maintainer>

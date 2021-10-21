@@ -4,6 +4,7 @@ import rospy
 from geometry_msgs.msg import Twist
 from detection_msgs.msg import DetectionArray, Detection
 import numpy as np
+import math
 
 
 class ControlFromDetection:
@@ -19,7 +20,6 @@ class ControlFromDetection:
         self.detections = None
 
     def update_detection(self, detections):
-        print("new detections:", detections)
         self.detections = detections
 
     def stop(self):
@@ -30,15 +30,33 @@ class ControlFromDetection:
         print("Stopping robot.")
     
     def closest_distance_to_detection(self):
-        #TODO: get closest detection distance from detection array.
-        closest_distance = None
-        # print(self.detections)
+        if self.detections is None:
+            return None
+
+        closest_distance = math.inf
+
+        for detection in self.detections.detections:
+            lower = detection.box.lower
+            upper = detection.box.upper
+            detection_center_point = np.array([
+                (lower.x + upper.x) / 2,
+                (lower.y + upper.y) / 2,
+                (lower.z + upper.z) / 2,
+            ])
+
+            distance_to_center_point = np.linalg.norm(detection_center_point)
+
+            if distance_to_center_point < closest_distance:
+                closest_distance = distance_to_center_point
+                
+        self.detections = None
 
         return closest_distance
 
     def check_collision(self):
         distance_to_detection = self.closest_distance_to_detection()
         if distance_to_detection and distance_to_detection <= self.stopping_distance:
+            print("Detection {:.2f} m away within stopping distance of {:.2f} m.".format(distance_to_detection, self.stopping_distance))
             self.stop()
 
 

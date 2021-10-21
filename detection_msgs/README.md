@@ -1,1 +1,0 @@
-# ros_detection_msgs
