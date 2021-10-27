@@ -20,8 +20,10 @@ def create_detection_markers(detections):
 def create_detection_marker(detection, frame):
     marker = Marker()
     marker.header.frame_id = frame
-    marker.type = marker.LINE_STRIP
+    marker.type = marker.LINE_LIST
     marker.action = marker.ADD
+    
+    marker.lifetime = 1
 
     # marker scale
     marker.scale.x = 0.05
@@ -29,7 +31,7 @@ def create_detection_marker(detection, frame):
     marker.scale.z = 0.05
 
     # marker color
-    marker.color.a = 1.0
+    marker.color.a = 0.8
     marker.color.r = 1.0
     marker.color.g = 0.0
     marker.color.b = 0.0
@@ -48,21 +50,24 @@ def create_detection_marker(detection, frame):
     # marker line points
     marker.points = []
 
-    lower = detection.box.lower
+    L = detection.box.lower
     upper = detection.box.upper
 
-    # first point
-    first_line_point = Point()
-    first_line_point.x = lower.x
-    first_line_point.y = lower.y
-    first_line_point.z = lower.z
-    marker.points.append(first_line_point)
+    p0 = L
+    p1 = Point(L.x, U.y, L.z)
+    p2 = Point(L.x, U.y, U.z)
+    p3 = Point(L.x, L.y, U.z)
+    p4 = Point(U.x, L.y, L.z)
+    p5 = Point(U.x, U.y, L.z)
+    p6 = U
+    p7 = Point(U.x, L.y, U.z)
 
-    # second point
-    second_line_point = Point()
-    second_line_point.x = upper.x
-    second_line_point.y = upper.y
-    second_line_point.z = upper.z
-    marker.points.append(second_line_point)
+    points = [p0, p1, p2, p3, p4, p5, p6, p7]
+
+    for i in range(0, len(points)-1):
+        start = points[i]
+        end = points[i+1]
+        marker.points.append(start)
+        marker.points.append(end)
 
     return marker
