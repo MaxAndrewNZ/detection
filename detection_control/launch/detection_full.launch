@@ -1,7 +1,13 @@
   <launch>
+    <!-- Arguments -->
+    <arg name="open_rviz"                 default="true"/>
+    <arg name="start_camera"              default="true"/>
+    <arg name="yolo_detection"            default="true"/>
+    <arg name="robot_control"             default="false"/>
+
 
     <!-- Camera Launch-->
-    <include file="$(find realsense2_camera)/launch/rs_rgbd.launch">
+    <include if="$(arg start_camera)" file="$(find realsense2_camera)/launch/rs_rgbd.launch">
         <arg name="depth_width"           default="640"/>
         <arg name="depth_height"          default="480"/>
         <arg name="color_width"           default="640"/>
@@ -11,16 +17,20 @@
         <arg name="depth_fps"             default="15"/>
 
         <arg name="camera"                default="camera"/>
-        <arg name="serial_no"             default="825312071964"/>
+        <arg name="serial_no"             default="825312071964"/> <!-- TODO: Update to SN on your D435 -->
         <arg name="enable_pointcloud"     default="false"/>
         <arg name="align_depth"           default="true"/>
     </include>  
 
-    <!-- Object depth detection --> 
-    <include file="$(find detection_yolo)/launch/yolo_object_depth_detection.launch"/>
+    <!-- Yolo object detection --> 
+    <include if="$(arg yolo_detection)" file="$(find detection_yolo)/launch/yolo_object_depth_detection.launch"/>
 
     <!-- Detection Robot Control -->
     <rosparam file="$(find detection_control)/config/detection_control_params.yaml" command="load" />
-    <node pkg="detection_control" type="control_from_detection.py" name="control_from_detection" output="screen"/>
+    <node if="$(arg robot_control)" pkg="detection_control" type="control_from_detection.py" name="control_from_detection" output="screen"/>
+
+    <!-- Rviz -->
+    <node if="$(arg open_rviz)" pkg="rviz" type="rviz" name="rviz" 
+      args="-d $(find detection_yolo)/rviz/yolo_detection.rviz"/>
 
   </launch>

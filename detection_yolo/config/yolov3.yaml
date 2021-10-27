@@ -9,20 +9,20 @@ yolo_model:
   detection_classes:
     names:
       - person
-      - bicycle
-      - car
-      - motorbike
-      - aeroplane
-      - bus
-      - train
-      - truck
-      - boat
-      - cat
-      - dog
-      - horse
-      - sheep
-      - cow
-      - elephant
-      - bear
-      - zebra
-      - giraffe
+      # - bicycle
+      # - car
+      # - motorbike
+      # - aeroplane
+      # - bus
+      # - train
+      # - truck
+      # - boat
+      # - cat
+      # - dog
+      # - horse
+      # - sheep
+      # - cow
+      # - elephant
+      # - bear
+      # - zebra
+      # - giraffe
