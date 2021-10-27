@@ -1,24 +1,25 @@
 #!/usr/bin/env python3
 
-import rospy
 from visualization_msgs.msg import Marker, MarkerArray
+from geometry_msgs.msg import Point
 
 
 def create_detection_markers(detections): 
+    frame = detections.header.frame_id
     marker_array =  MarkerArray()
     for detection in detections.detections:
-        marker = create_detection_marker(detection)
+        marker = create_detection_marker(detection, frame)
         marker_array.markers.append(marker)
 
     for i in range(0, len(marker_array.markers)):
         marker_array.markers[i].id = i
 
-    return markers
+    return marker_array
 
 
-def create_detection_marker(detection):
+def create_detection_marker(detection, frame):
     marker = Marker()
-    marker.header.frame_id = detection.header.frame_id
+    marker.header.frame_id = frame
     marker.type = marker.LINE_STRIP
     marker.action = marker.ADD
 
