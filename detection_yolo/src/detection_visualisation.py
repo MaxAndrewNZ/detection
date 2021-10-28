@@ -4,9 +4,58 @@ from visualization_msgs.msg import Marker, MarkerArray
 from geometry_msgs.msg import Point
 
 
+def create_detection_boxes(detections): 
+    frame = detections.header.frame_id
+    box_array = MarkerArray()
+    for detection in detections.detections:
+        box = create_detection_box(detection, frame)
+        box_array.markers.append(box)
+
+    for i in range(0, len(box_array.markers)):
+        box_array.markers[i].id = i
+
+    return box_array
+
+
+def create_detection_box(detection, frame):
+    marker = Marker()
+    marker.header.frame_id = frame
+    marker.type = marker.CUBE
+    marker.action = marker.ADD
+    
+    marker.lifetime = 1
+
+    # marker scale
+    marker.scale.x = 0.05
+    marker.scale.y = 0.05
+    marker.scale.z = 0.05
+
+    # marker color
+    marker.color.a = 0.8
+    marker.color.r = 1.0
+    marker.color.g = 0.0
+    marker.color.b = 0.0
+
+    # marker orientation
+    marker.pose.orientation.x = 0.0
+    marker.pose.orientation.y = 0.0
+    marker.pose.orientation.z = 0.0
+    marker.pose.orientation.w = 1.0
+
+    # marker position
+    lower = detection.box.lower
+    upper = detection.box.upper
+
+    marker.pose.position.x = lower.x
+    marker.pose.position.y = lower.y
+    marker.pose.position.z = lower.z
+
+    return marker
+
+
 def create_detection_markers(detections): 
     frame = detections.header.frame_id
-    marker_array =  MarkerArray()
+    marker_array = MarkerArray()
     for detection in detections.detections:
         marker = create_detection_marker(detection, frame)
         marker_array.markers.append(marker)

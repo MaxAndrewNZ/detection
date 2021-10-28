@@ -81,7 +81,7 @@ def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboi
     detection_array.header = depth_image.header
     detection_array.detections = detection_cuboids
 
-    markers = detection_visualisation.create_detection_markers(detection_array)
+    markers = detection_visualisation.create_detection_boxes(detection_array)
 
     cuboid_publisher.publish(detection_array)
     marker_publisher.publish(markers)
