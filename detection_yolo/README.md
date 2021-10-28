@@ -1,6 +1,6 @@
 # ROS Yolo Detection
 
-The package subscribes to an RGB and Depth stream and outputs an array of detections.
+The package subscribes to an RGB and Depth stream and outputs an array of detections using YOLO.
 
 ## Dependencies
 
@@ -12,12 +12,6 @@ The package subscribes to an RGB and Depth stream and outputs an array of detect
 
 `git clone --recursive git@github.com:MaxAndrewNZ/darknet_ros.git`
 
-## Running
-
-### Build and Source
-
-1. `catkin build`
-2. `source devel/setup.bash`
 
 ## Using Bags
 

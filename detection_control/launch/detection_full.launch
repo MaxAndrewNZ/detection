@@ -4,6 +4,7 @@
     <arg name="start_camera"              default="true"/>
     <arg name="yolo_detection"            default="true"/>
     <arg name="robot_control"             default="false"/>
+    <arg name="d435_serial_number"        default="825312071964"/>
 
 
     <!-- Camera Launch-->
@@ -17,7 +18,7 @@
         <arg name="depth_fps"             default="15"/>
 
         <arg name="camera"                default="camera"/>
-        <arg name="serial_no"             default="825312071964"/> <!-- TODO: Update to SN on your D435 -->
+        <arg name="serial_no"             default="$(arg d435_serial_number)"/>
         <arg name="enable_pointcloud"     default="false"/>
         <arg name="align_depth"           default="true"/>
     </include>  

@@ -27,7 +27,7 @@ class ControlFromDetection:
         vel_msg.linear.x = 0.0
         vel_msg.angular.z = 0.0
         self.velocity_publisher.publish(vel_msg)
-        print("Stopping robot.")
+        rospy.loginfo("Stopping robot.")
     
     def closest_distance_to_detection(self):
         if self.detections is None:
@@ -56,7 +56,7 @@ class ControlFromDetection:
     def check_collision(self):
         distance_to_detection = self.closest_distance_to_detection()
         if distance_to_detection and distance_to_detection <= self.stopping_distance:
-            print("Detection {:.2f} m away within stopping distance of {:.2f} m.".format(distance_to_detection, self.stopping_distance))
+            rospy.loginfo("Detection {:.2f} m away within stopping distance of {:.2f} m.".format(distance_to_detection, self.stopping_distance))
             self.stop()
 
 
