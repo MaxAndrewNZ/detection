@@ -1,4 +1,4 @@
-average_distance_percentile: 0.2
+average_distance_percentile: 0.1
 
 # Topics
 bounding_box_topic: '/darknet_ros/bounding_boxes'

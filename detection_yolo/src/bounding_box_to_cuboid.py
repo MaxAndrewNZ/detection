@@ -33,9 +33,10 @@ def get_cuboid(distance_to_object, xmin, ymin, xmax, ymax, camera_intrinsics):
     lower_point = convert_depth_pixel_to_point(distance_to_object, xmin, ymin, camera_intrinsics)
     upper_point = convert_depth_pixel_to_point(distance_to_object, xmax, ymax, camera_intrinsics)
 
+    # Estimating size of object in z axis
     radius = abs(upper_point.x - lower_point.x) / 2
-    upper_point.z += radius
-    lower_point.z -= radius
+    upper_point.z += radius * 2
+    lower_point.z -= radius / 2
 
     cuboid = Box(lower_point, upper_point)
 
@@ -67,7 +68,7 @@ def create_detection_cuboid(object_box, cv_depth_image, camera_intrinsics):
         return None
 
 
-def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboid_publisher, marker_publisher, point_publisher):
+def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboid_publisher, marker_publisher):
     detection_cuboids = []
     cv_bridge = CvBridge()
     cv_depth_image = cv_bridge.imgmsg_to_cv2(depth_image, desired_encoding="passthrough")
@@ -82,11 +83,9 @@ def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboi
     detection_array.detections = detection_cuboids
 
     markers = detection_visualisation.create_detection_boxes(detection_array)
-    points = detection_visualisation.create_detection_markers(detection_array)
 
     cuboid_publisher.publish(detection_array)
     marker_publisher.publish(markers)
-    point_publisher.publish(points)
 
 
 def start_listeners():
@@ -97,11 +96,10 @@ def start_listeners():
 
     cuboid_publisher = rospy.Publisher(rospy.get_param("/bounding_box_to_cuboid/publish_topic"), DetectionArray, queue_size=10)
     marker_publisher = rospy.Publisher("~markers", MarkerArray, queue_size=10)
-    point_publisher = rospy.Publisher("~points", MarkerArray, queue_size=10)
 
     camera_intrinsics = rospy.wait_for_message(rospy.get_param("/bounding_box_to_cuboid/camera_intrinsics_topic"), CameraInfo)
 
-    ts.registerCallback(process_bounding_boxes, camera_intrinsics, cuboid_publisher, marker_publisher, point_publisher)
+    ts.registerCallback(process_bounding_boxes, camera_intrinsics, cuboid_publisher, marker_publisher)
 
     rospy.spin()
 
