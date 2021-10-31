@@ -3,7 +3,7 @@
     <arg name="open_rviz"                 default="true"/>
     <arg name="start_camera"              default="true"/>
     <arg name="yolo_detection"            default="true"/>
-    <arg name="robot_control"             default="false"/>
+    <arg name="robot_control"             default="true"/>
     <arg name="d435_serial_number"        default="825312071964"/>
 
 
