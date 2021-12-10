@@ -2,7 +2,7 @@
 
 import rospy
 from geometry_msgs.msg import Twist
-from detection_msgs.msg import DetectionArray, Detection
+from detection_messages.msg import DetectionArray, Detection
 import numpy as np
 import math
 

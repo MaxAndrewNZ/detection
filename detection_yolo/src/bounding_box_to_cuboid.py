@@ -4,7 +4,7 @@ from os import path
 
 import rospy
 from darknet_ros_msgs.msg import BoundingBoxes
-from detection_msgs.msg import Box, Detection, DetectionArray
+from detection_messages.msg import Box, Detection, DetectionArray
 from visualization_msgs.msg import Marker, MarkerArray
 from sensor_msgs.msg import Image, CameraInfo
 from geometry_msgs.msg import Point
