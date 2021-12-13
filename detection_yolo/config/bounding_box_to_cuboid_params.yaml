@@ -1,8 +1,9 @@
-average_distance_percentile: 0.1
+bounding_box_to_cuboid:
+  average_distance_percentile: 0.1
 
-# Topics
-bounding_box_topic: '/darknet_ros/bounding_boxes'
-depth_image_topic: '/camera/aligned_depth_to_color/image_raw'
-camera_intrinsics_topic: '/camera/color/camera_info'
+  # Topics
+  bounding_box_topic: '/darknet_ros/bounding_boxes'
+  depth_image_topic: '/navigation/cam_front/aligned_depth_to_color/image_raw'
+  camera_intrinsics_topic: '/navigation/cam_front/color/camera_info'
 
-publish_topic: '/bounding_box_to_cuboid/detections'
+  publish_topic: 'detections'

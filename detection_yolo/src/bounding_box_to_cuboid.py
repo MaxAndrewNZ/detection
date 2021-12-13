@@ -48,7 +48,7 @@ def create_detection_cuboid(object_box, cv_depth_image, camera_intrinsics):
     depth_array = np.array(cropped_depth_image, dtype = np.float32)
     depth_array = depth_array.flatten()
 
-    percentile = rospy.get_param("/bounding_box_to_cuboid/average_distance_percentile")
+    percentile = rospy.get_param("~average_distance_percentile")
 
     depth_array = depth_array[depth_array != 0] 
     if len(depth_array) > 0:  
@@ -89,15 +89,15 @@ def process_bounding_boxes(bounding_boxes, depth_image, camera_intrinsics, cuboi
 
 
 def start_listeners():
-    box_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/bounding_box_topic"), BoundingBoxes, queue_size=10)
-    depth_image_sub = message_filters.Subscriber(rospy.get_param("/bounding_box_to_cuboid/depth_image_topic"), Image, queue_size=10)
+    box_sub = message_filters.Subscriber(rospy.get_param("~bounding_box_topic"), BoundingBoxes, queue_size=10)
+    depth_image_sub = message_filters.Subscriber(rospy.get_param("~depth_image_topic"), Image, queue_size=10)
 
     ts = message_filters.ApproximateTimeSynchronizer([box_sub, depth_image_sub], 1, 1)
 
-    cuboid_publisher = rospy.Publisher(rospy.get_param("/bounding_box_to_cuboid/publish_topic"), DetectionArray, queue_size=10)
+    cuboid_publisher = rospy.Publisher(rospy.get_param("~publish_topic"), DetectionArray, queue_size=10)
     marker_publisher = rospy.Publisher("~markers", MarkerArray, queue_size=10)
 
-    camera_intrinsics = rospy.wait_for_message(rospy.get_param("/bounding_box_to_cuboid/camera_intrinsics_topic"), CameraInfo)
+    camera_intrinsics = rospy.wait_for_message(rospy.get_param("~camera_intrinsics_topic"), CameraInfo)
 
     ts.registerCallback(process_bounding_boxes, camera_intrinsics, cuboid_publisher, marker_publisher)
 
