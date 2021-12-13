@@ -8,7 +8,7 @@ The package subscribes to an RGB and Depth stream and outputs an array of detect
 
 `pip3 install -r dependencies.txt`
 
-### [Darknet ROS](https://github.com/MaxAndrewNZ/darknet_ros)
+### [Darknet ROS](https://github.com/uc-csse/darknet_ros)
 
 `git clone --recursive git@github.com:uc-csse/darknet_ros.git`
 - This package should be cloned to your catkin_ws src folder
