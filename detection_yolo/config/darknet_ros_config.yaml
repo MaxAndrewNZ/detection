@@ -1,6 +1,6 @@
 subscribers:
   camera_reading:
-    topic: /camera/color/image_raw
+    topic: /navigation/cam_front/color/image_raw
     queue_size: 1
 
 publishers:
